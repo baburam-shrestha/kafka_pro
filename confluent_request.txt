@@ -1,0 +1,48 @@
+Source Connector
+
+{
+"name": "Kafka-Employee-Connect",
+"config": {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+    "connection.url": "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=babucode",
+    "topic.prefix": "Kafka-Employee-Connect-topic",
+    "mode": "timestamp",
+    "catalog.pattern": "Kafka-Employee-Connect-pattern",
+    "query": "select * from employee;"
+}
+}
+
+Link: http://localhost:8083/connectors  POST
+
+
+Connector list 
+Link: http://localhost:8083/connectors  GET
+
+
+Connector status
+Link: http://localhost:8083/connectors/Kafka-Employee-Connect/status  GET
+
+
+Connector pause
+Link: http://localhost:8083/connectors/Kafka-Employee-Connect/pause  PUT
+
+Connector resume
+Link: http://localhost:8083/connectors/Kafka-Employee-Connect/resume  PUT
+
+
+Sink Connector 
+
+{
+"name": "Kafka-Employee-Connect",
+"config": {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+    "connection.url": "jdbc:postgresql://localhost:5432/postgres",
+    "connection.user":"postgres",
+    "connection.password":"babucode",
+    "topics": "Kafka-Employee-Connect-topic",
+    "table.name.format": "postgres.public.Employees",
+    "auto.create":"true",
+    "auto.evolve":"true"
+}
+}
+Link: http://localhost:8083/connectors  POST

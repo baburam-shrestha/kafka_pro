@@ -1,0 +1,48 @@
+Source Connector
+
+{
+"name": "Air-Quality-Source-Connector",
+"config": {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+    "connection.url": "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=babucode",
+    "topic.prefix": "Air-Quality-Source-Connector-Topic",
+    "mode": "timestamp",
+    "catalog.pattern": "Air-Quality-Source-Connector-Pattern",
+    "query": "select * from air_quality;"
+}
+}
+
+Link: http://localhost:8083/connectors  POST
+
+
+Connector list 
+Link: http://localhost:8083/connectors  GET
+
+
+Connector status
+Link: http://localhost:8083/connectors/Air-Quality-Source-Connector/status  GET
+
+
+Connector pause
+Link: http://localhost:8083/connectors/Air-Quality-Source-Connector/pause  PUT
+
+Connector resume
+Link: http://localhost:8083/connectors/Air-Quality-Source-Connector/resume  PUT
+
+
+Sink Connector 
+
+{
+"name": "Air-Quality-Sink-Connector",
+"config": {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+    "connection.url": "jdbc:postgresql://localhost:5432/postgres",
+    "connection.user":"postgres",
+    "connection.password":"babucode",
+    "topics": "Air-Quality-Source-Connector-Topic",
+    "table.name.format": "air_quality_sink",
+    "auto.create":"true",
+    "auto.evolve":"true"
+}
+}
+Link: http://localhost:8083/connectors  POST
